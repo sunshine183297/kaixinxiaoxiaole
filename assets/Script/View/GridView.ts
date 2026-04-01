@@ -3,6 +3,7 @@ const { ccclass, property } = _decorator;
 
 import { CELL_WIDTH, CELL_HEIGHT, ANITIME, GRID_WIDTH, GRID_HEIGHT } from '../Model/ConstValue';
 import { AudioUtils } from "../Utils/AudioUtils";
+import { getCellThemeBinding } from '../Utils/ThemeConfig';
 import CellModel from '../Model/CellModel';
 import { EffectCommand } from '../Model/GameModel';
 import { CellView } from './CellView';
@@ -85,7 +86,8 @@ export class GridView extends Component {
 
                 const type = cellsModels[y][x]!.type;
                 if (type === null || type < 0 || type >= this.aniPre.length) {
-                    console.warn(`GridView: Invalid type ${type} at (${x}, ${y})`);
+                    const bindingHint = typeof type === 'number' ? getCellThemeBinding(type)?.logicName : null;
+                    console.warn(`GridView: Invalid type ${type} at (${x}, ${y})`, bindingHint ? `(theme: ${bindingHint})` : '');
                     continue;
                 }
                 

@@ -23,6 +23,7 @@ import { LevelSession } from '../Model/Level/LevelSession';
 import { LevelConfigService, LevelConfig } from '../Model/Level/LevelConfig';
 import { LevelProgress } from '../Model/Level/LevelProgress';
 import { ResourceLoader } from '../Utils/ResourceLoader';
+import { UI_TEXT } from '../Utils/TextConst';
 const { ccclass, property } = _decorator;
 
 @ccclass('LevelSelectController')
@@ -34,6 +35,8 @@ export class LevelSelectController extends Component {
   private contentNode: Node | null = null;
   private backgroundNode: Node | null = null;
   private scrollHintNode: Node | null = null;
+  private pageTitleNode: Node | null = null;
+  private pageSubtitleNode: Node | null = null;
   private iconFrames: Record<string, SpriteFrame> = {};
 
   async onLoad(): Promise<void> {
@@ -101,6 +104,31 @@ export class LevelSelectController extends Component {
       hintNode.addComponent(Sprite);
       this.scrollHintNode = hintNode;
     }
+
+    if (!this.pageTitleNode) {
+      const titleNode = new Node('LevelPageTitle');
+      canvasNode.addChild(titleNode);
+      titleNode.setPosition(new Vec3(0, canvasHeight * 0.43, 0));
+      titleNode.addComponent(UITransform).setContentSize(560, 50);
+      const titleLabel = titleNode.addComponent(Label);
+      titleLabel.string = UI_TEXT.level.pageTitle;
+      titleLabel.fontSize = 34;
+      titleLabel.color = color(255, 246, 196);
+      this.pageTitleNode = titleNode;
+    }
+
+    if (!this.pageSubtitleNode) {
+      const subtitleNode = new Node('LevelPageSubtitle');
+      canvasNode.addChild(subtitleNode);
+      subtitleNode.setPosition(new Vec3(0, canvasHeight * 0.39, 0));
+      subtitleNode.addComponent(UITransform).setContentSize(620, 32);
+      const subtitleLabel = subtitleNode.addComponent(Label);
+      subtitleLabel.string = UI_TEXT.level.pageSubtitle;
+      subtitleLabel.fontSize = 20;
+      subtitleLabel.color = color(220, 255, 220);
+      this.pageSubtitleNode = subtitleNode;
+    }
+
     let scrollNode = canvasNode.getChildByName('LevelScroll');
     if (!scrollNode) {
       scrollNode = new Node('LevelScroll');
@@ -232,8 +260,8 @@ export class LevelSelectController extends Component {
     titleNode.setPosition(new Vec3(0, 38, 0));
     const titleLabel = titleNode.addComponent(Label);
     titleLabel.string = isUnlocked
-      ? `${level.data.id}. ${level.data.name}`
-      : `${level.data.id}. 未解锁`;
+      ? `${UI_TEXT.level.levelPrefix}${level.data.id} · ${level.data.name}`
+      : `${UI_TEXT.level.levelPrefix}${level.data.id} · ${UI_TEXT.level.lockedSuffix}`;
     titleLabel.fontSize = 32;
     titleLabel.color = isUnlocked ? color(255, 255, 255) : color(180, 180, 180);
 
@@ -295,7 +323,9 @@ export class LevelSelectController extends Component {
     const modeLabelNode = new Node('ModeLabel');
     modeNode.addChild(modeLabelNode);
     const modeLabel = modeLabelNode.addComponent(Label);
-    const valueText = level.data.mode === 'time' ? `${level.data.time || 0}s` : `${level.data.steps || 0}步`;
+    const valueText = level.data.mode === 'time'
+      ? `${level.data.time || 0}${UI_TEXT.level.timeUnit}`
+      : `${level.data.steps || 0}${UI_TEXT.level.stepUnit}`;
     modeLabel.string = valueText;
     modeLabel.fontSize = 24;
     modeLabel.color = isUnlocked ? color(255, 255, 255) : color(160, 160, 160);

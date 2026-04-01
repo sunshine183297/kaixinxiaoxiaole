@@ -1,7 +1,7 @@
 import { _decorator, Component, SpriteFrame, Animation, Sprite, tween, v3, UIOpacity, Vec3, Node, UITransform } from 'cc';
 const { ccclass, property } = _decorator;
 
-import { CELL_STATUS, CELL_WIDTH, CELL_HEIGHT, ANITIME } from '../Model/ConstValue';
+import { CELL_STATUS, CELL_WIDTH, CELL_HEIGHT, ANITIME, CELL_TYPE } from '../Model/ConstValue';
 import CellModel from '../Model/CellModel';
 import { ResourceLoader } from '../Utils/ResourceLoader';
 
@@ -39,6 +39,7 @@ export class CellView extends Component {
 
         this.ensureObstacleNode();
         this.refreshObstacleVisual();
+        this.applyFruitPlaceholderTint();
     }
 
     updateView(): void {
@@ -106,6 +107,29 @@ export class CellView extends Component {
         }
         
         currentTween.start();
+    }
+
+    private applyFruitPlaceholderTint(): void {
+        if (!this.model) return;
+        const sprite = this.node.getComponent(Sprite);
+        if (!sprite) return;
+
+        const tintByType: Record<number, [number, number, number]> = {
+            [CELL_TYPE.A]: [255, 105, 97],      // apple red
+            [CELL_TYPE.B]: [255, 226, 107],     // banana yellow
+            [CELL_TYPE.C]: [172, 113, 255],     // grape purple
+            [CELL_TYPE.D]: [255, 170, 80],      // orange
+            [CELL_TYPE.E]: [96, 214, 122],      // watermelon green
+            [CELL_TYPE.F]: [112, 156, 255],     // blueberry blue
+            [CELL_TYPE.BIRD]: [255, 120, 220]   // special fruit (high-contrast)
+        };
+
+        const rgb = tintByType[this.model.type ?? -1];
+        if (!rgb) {
+            sprite.color = new Color(255, 255, 255, 255);
+            return;
+        }
+        sprite.color = new Color(rgb[0], rgb[1], rgb[2], 255);
     }
 
     private ensureObstacleNode(): void {

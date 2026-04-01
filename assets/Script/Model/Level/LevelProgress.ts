@@ -1,10 +1,9 @@
 import { sys } from 'cc';
+import { STORAGE_KEYS } from '../../Utils/StorageKeyConst';
 
 export interface LevelProgressData {
   stars: Record<string, number>;
 }
-
-const STORAGE_KEY = 'levelProgress';
 
 export class LevelProgress {
   private data: LevelProgressData;
@@ -14,7 +13,7 @@ export class LevelProgress {
   }
 
   static load(): LevelProgress {
-    const raw = sys.localStorage.getItem(STORAGE_KEY);
+    const raw = sys.localStorage.getItem(STORAGE_KEYS.levelProgress);
     if (!raw) return new LevelProgress();
 
     try {
@@ -27,7 +26,7 @@ export class LevelProgress {
   }
 
   save(): void {
-    sys.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+    sys.localStorage.setItem(STORAGE_KEYS.levelProgress, JSON.stringify(this.data));
   }
 
   getStars(levelId: number): number {

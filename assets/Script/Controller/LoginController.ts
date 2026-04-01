@@ -1,5 +1,6 @@
-import { _decorator, Component, ProgressBar, Button, AudioClip, director, assetManager, AudioSource, Sprite, Node } from 'cc';
+import { _decorator, Component, ProgressBar, Button, AudioClip, director, AudioSource, Sprite, Node, Label, Canvas, UITransform, Widget, Color } from 'cc';
 import { LevelSelectController } from './LevelSelectController';
+import { APP_DISPLAY_NAME, UI_TEXT } from '../Utils/TextConst';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoginController')
@@ -16,6 +17,10 @@ export class LoginController extends Component {
     private audioSource: AudioSource | null = null;
 
     onLoad(): void {
+        if (typeof document !== 'undefined') {
+            document.title = APP_DISPLAY_NAME;
+        }
+        this.ensureThemeTitle();
         // In Cocos 3.x, create AudioSource component to play audio
         this.audioSource = this.node.addComponent(AudioSource);
         if (this.audioSource && this.worldSceneBGM) {
@@ -95,6 +100,46 @@ export class LoginController extends Component {
         } else {
             barSprite.type = Sprite.Type.SIMPLE;
         }
+    }
+
+    private ensureThemeTitle(): void {
+        const scene = director.getScene();
+        if (!scene) return;
+        const canvas = scene.getComponentInChildren(Canvas);
+        if (!canvas) return;
+        const canvasNode = canvas.node;
+        if (canvasNode.getChildByName('ThemeTitle')) return;
+
+        const titleNode = new Node('ThemeTitle');
+        canvasNode.addChild(titleNode);
+        const ui = titleNode.addComponent(UITransform);
+        ui.setContentSize(520, 80);
+        const widget = titleNode.addComponent(Widget);
+        widget.isAlignTop = true;
+        widget.isAlignHorizontalCenter = true;
+        widget.top = 72;
+        widget.horizontalCenter = 0;
+        widget.target = canvasNode;
+
+        const label = titleNode.addComponent(Label);
+        label.string = UI_TEXT.login.heroTitle;
+        label.fontSize = 34;
+        label.color = new Color(255, 246, 196, 255);
+
+        const subtitleNode = new Node('ThemeSubtitle');
+        canvasNode.addChild(subtitleNode);
+        const subtitleUi = subtitleNode.addComponent(UITransform);
+        subtitleUi.setContentSize(520, 40);
+        const subtitleWidget = subtitleNode.addComponent(Widget);
+        subtitleWidget.isAlignTop = true;
+        subtitleWidget.isAlignHorizontalCenter = true;
+        subtitleWidget.top = 112;
+        subtitleWidget.horizontalCenter = 0;
+        subtitleWidget.target = canvasNode;
+        const subtitle = subtitleNode.addComponent(Label);
+        subtitle.string = UI_TEXT.login.heroSubtitle;
+        subtitle.fontSize = 20;
+        subtitle.color = new Color(220, 255, 220, 255);
     }
 
 }
