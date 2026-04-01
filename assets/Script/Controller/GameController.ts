@@ -11,6 +11,8 @@ import { GridView } from '../View/GridView';
 import { Vec2 } from 'cc';
 import { LevelSelectController } from './LevelSelectController';
 import type { EffectCommand } from '../Model/GameModel';
+import { UI_TEXT } from '../Utils/TextConst';
+import { STORAGE_KEYS } from '../Utils/StorageKeyConst';
 
 @ccclass('GameController')
 export class GameController extends Component {
@@ -29,6 +31,7 @@ export class GameController extends Component {
     private collectLabel: Label | null = null;
     private limitLabel: Label | null = null;
     private limitTitleLabel: Label | null = null;
+    private stageTitleLabel: Label | null = null;
     private resultPanel: Node | null = null;
     private resultLabel: Label | null = null;
     private resultStarsLabel: Label | null = null;
@@ -91,7 +94,7 @@ export class GameController extends Component {
     }
 
     private restoreVolume(): void {
-        const raw = sys.localStorage.getItem('volume');
+        const raw = sys.localStorage.getItem(STORAGE_KEYS.volume);
         const v = raw ? Number(raw) : 1;
         this.volume = Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : 1;
         this.applyVolume(this.volume);
@@ -266,7 +269,7 @@ export class GameController extends Component {
         panel.addChild(titleNode);
         titleNode.setPosition(new Vec3(0, 150, 0));
         const title = titleNode.addComponent(Label);
-        title.string = '已暂停';
+        title.string = UI_TEXT.pause.title;
         title.fontSize = 34;
         title.color = new Color(255, 255, 255, 255);
 
@@ -301,7 +304,7 @@ export class GameController extends Component {
         volRow.addChild(volTextNode);
         volTextNode.setPosition(new Vec3(-70, 0, 0));
         const volText = volTextNode.addComponent(Label);
-        volText.string = '音量';
+        volText.string = UI_TEXT.pause.volume;
         volText.fontSize = 26;
         volText.color = new Color(255, 255, 255, 255);
         volText.horizontalAlign = Label.HorizontalAlign.LEFT;
@@ -367,7 +370,7 @@ export class GameController extends Component {
         });
 
         // Buttons
-        const btnHome = this.createPanelButton(panel, 'BtnHome', -20, '返回主页', (g) => {
+        const btnHome = this.createPanelButton(panel, 'BtnHome', -20, UI_TEXT.pause.home, (g) => {
             // house
             g.moveTo(-12, -2);
             g.lineTo(0, 12);
@@ -377,7 +380,7 @@ export class GameController extends Component {
             g.stroke();
         });
 
-        const btnContinue = this.createPanelButton(panel, 'BtnContinue', -100, '继续游戏', (g) => {
+        const btnContinue = this.createPanelButton(panel, 'BtnContinue', -100, UI_TEXT.pause.continue, (g) => {
             // play triangle
             g.moveTo(-6, -14);
             g.lineTo(16, 0);
@@ -400,13 +403,13 @@ export class GameController extends Component {
 
     private refreshVolumeLabel(): void {
         if (!this.volumeLabel) return;
-        this.volumeLabel.string = `当前：${Math.round(this.volume * 100)}%`;
+        this.volumeLabel.string = `${UI_TEXT.pause.volumeCurrentPrefix}${Math.round(this.volume * 100)}%`;
     }
 
     private setVolume(v: number): void {
         const next = Math.min(1, Math.max(0, v));
         this.volume = next;
-        sys.localStorage.setItem('volume', String(next));
+        sys.localStorage.setItem(STORAGE_KEYS.volume, String(next));
         this.applyVolume(next);
         this.refreshVolumeLabel();
     }
@@ -666,7 +669,7 @@ export class GameController extends Component {
             hud.addChild(scoreTitleNode);
             scoreTitleNode.setPosition(new Vec3(-w * 0.43, 18, 0));
             const scoreTitleLabel = scoreTitleNode.addComponent(Label);
-            scoreTitleLabel.string = '分数';
+            scoreTitleLabel.string = UI_TEXT.hud.score;
             scoreTitleLabel.fontSize = 18;
             scoreTitleLabel.color = new Color(180, 200, 255, 255);
 
@@ -686,6 +689,15 @@ export class GameController extends Component {
             collectLabel.color = new Color(200, 220, 255, 255);
             this.collectLabel = collectLabel;
 
+            const stageNode = new Node('StageLabel');
+            hud.addChild(stageNode);
+            stageNode.setPosition(new Vec3(0, 34, 0));
+            const stageLabel = stageNode.addComponent(Label);
+            stageLabel.fontSize = 16;
+            stageLabel.color = new Color(220, 255, 220, 255);
+            stageLabel.string = UI_TEXT.hud.stageLabel;
+            this.stageTitleLabel = stageLabel;
+
             // Limit section (right side)
             const limitBgNode = new Node('LimitBg');
             hud.addChild(limitBgNode);
@@ -703,7 +715,7 @@ export class GameController extends Component {
             const limitTitleLabel = limitTitleNode.addComponent(Label);
             limitTitleLabel.fontSize = 18;
             limitTitleLabel.color = new Color(180, 200, 255, 255);
-            limitTitleLabel.string = '步数';
+            limitTitleLabel.string = UI_TEXT.hud.steps;
             this.limitTitleLabel = limitTitleLabel;
             this.updateLimitTitle(limitTitleLabel);
 
@@ -722,7 +734,7 @@ export class GameController extends Component {
 
     private updateLimitTitle(label: Label): void {
         if (!this.levelState) return;
-        label.string = this.levelState.mode === 'time' ? '时间' : '步数';
+        label.string = this.levelState.mode === 'time' ? UI_TEXT.hud.time : UI_TEXT.hud.steps;
     }
 
     private updateHud(): void {
@@ -791,7 +803,7 @@ export class GameController extends Component {
             panel.addChild(backNode);
             backNode.setPosition(new Vec3(-100, -90, 0));
             const backLabel = backNode.addComponent(Label);
-            backLabel.string = '返回关卡';
+            backLabel.string = UI_TEXT.result.backToLevels;
             backLabel.fontSize = 28;
             backLabel.color = new Color(255, 255, 255, 255);
             backNode.on(Node.EventType.TOUCH_END, () => {
@@ -802,7 +814,7 @@ export class GameController extends Component {
             panel.addChild(nextNode);
             nextNode.setPosition(new Vec3(120, -90, 0));
             const nextLabel = nextNode.addComponent(Label);
-            nextLabel.string = '下一关';
+            nextLabel.string = UI_TEXT.result.nextLevel;
             nextLabel.fontSize = 26;
             nextLabel.color = new Color(255, 255, 255, 255);
             nextNode.on(Node.EventType.TOUCH_END, async () => {
@@ -824,7 +836,9 @@ export class GameController extends Component {
         }
 
         if (this.resultLabel) {
-            this.resultLabel.string = isWin ? '通关成功' : '通关失败';
+            this.resultLabel.string = isWin
+                ? `${UI_TEXT.result.titlePrefix}: ${UI_TEXT.result.win}`
+                : `${UI_TEXT.result.titlePrefix}: ${UI_TEXT.result.lose}`;
         }
 
         if (this.resultStarsLabel && this.levelConfig && this.levelState) {
