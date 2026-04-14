@@ -102,3 +102,25 @@ Guidance for AI coding agents working in this repository.
 - Open the repo in Cocos Creator 3.8.6 to run and verify UI changes.
 - Make incremental edits in `assets/Script/` and test via Preview.
 - Keep engine API usage consistent with existing code patterns.
+
+## Cursor Cloud specific instructions
+
+### Environment limitations
+- Cocos Creator 3.8.6 is a **GUI editor** and is **not installed** in the Cloud VM. The game cannot be built or previewed via CLI—there is no Cocos CLI build pipeline in this repo.
+- `tsc --noEmit` will report errors because `tsconfig.json` extends `temp/tsconfig.cocos.json` (generated only by the editor) and the `cc` engine module is unavailable outside the editor. These errors are expected and do not indicate broken code.
+
+### What Cloud agents CAN do
+- Edit TypeScript source under `assets/Script/` and review changes structurally.
+- Run `npx playwright test --list` to verify E2E test discovery (requires `npm install` first).
+- Run `npx playwright test` if a Cocos Creator preview server is available on `localhost:7456` (see below).
+- Perform code reviews, refactoring, and model-layer logic changes that don't require visual verification.
+
+### Playwright E2E tests
+- One E2E spec exists: `tests/playwright/game-flow.spec.js`.
+- It expects a Cocos Creator preview server at `http://localhost:7456/`. Override with `PLAYWRIGHT_BASE_URL` or `E2E_BASE_URL` env vars.
+- Without the preview server, the test will fail with `ERR_CONNECTION_REFUSED`—this is expected.
+- Chromium is installed via `npx playwright install --with-deps chromium`.
+
+### Dependencies
+- `npm install` installs the single dev dependency (`@playwright/test`).
+- No other build tools, linters, or test frameworks are configured.
