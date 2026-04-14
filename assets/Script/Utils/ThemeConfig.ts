@@ -1,6 +1,6 @@
 import { CELL_TYPE } from '../Model/ConstValue';
 
-export type ThemeName = 'default' | 'fruit-draft';
+export type ThemeName = 'default' | 'fruit-draft' | 'cat-draft';
 
 export interface CellThemeBinding {
   cellType: number;
@@ -124,7 +124,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/apple',
       suggestedPrefabName: 'FruitApple',
       displayName: 'Apple',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.B,
@@ -133,7 +133,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/banana',
       suggestedPrefabName: 'FruitBanana',
       displayName: 'Banana',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.C,
@@ -142,7 +142,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/grape',
       suggestedPrefabName: 'FruitGrape',
       displayName: 'Grape',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.D,
@@ -151,7 +151,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/orange',
       suggestedPrefabName: 'FruitOrange',
       displayName: 'Orange',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.E,
@@ -160,7 +160,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/watermelon',
       suggestedPrefabName: 'FruitWatermelon',
       displayName: 'Watermelon',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.F,
@@ -169,7 +169,7 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/blueberry',
       suggestedPrefabName: 'FruitBlueberry',
       displayName: 'Blueberry',
-      comment: 'Draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
     },
     {
       cellType: CELL_TYPE.BIRD,
@@ -178,36 +178,107 @@ export const FRUIT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'fruits/rainbow',
       suggestedPrefabName: 'FruitRainbowSpecial',
       displayName: 'Rainbow Fruit',
-      comment: 'Draft special-piece naming only. No change to special effect logic.'
+      comment: 'Legacy draft special-piece naming only. No change to special effect logic.'
     }
   ]
 };
 
-export const FRUIT_OBSTACLE_DRAFT: ObstacleThemeBinding[] = [
+export const CAT_THEME_CONFIG: ThemeConfig = {
+  themeName: 'cat-draft',
+  cellBindings: [
+    {
+      cellType: CELL_TYPE.A,
+      logicName: 'cat_white',
+      prefabSlot: CELL_TYPE.A,
+      skinKey: 'cats/white',
+      suggestedPrefabName: 'CatWhite',
+      displayName: 'White Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.B,
+      logicName: 'cat_orange',
+      prefabSlot: CELL_TYPE.B,
+      skinKey: 'cats/orange',
+      suggestedPrefabName: 'CatOrange',
+      displayName: 'Orange Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.C,
+      logicName: 'cat_black',
+      prefabSlot: CELL_TYPE.C,
+      skinKey: 'cats/black',
+      suggestedPrefabName: 'CatBlack',
+      displayName: 'Black Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.D,
+      logicName: 'cat_blue',
+      prefabSlot: CELL_TYPE.D,
+      skinKey: 'cats/blue',
+      suggestedPrefabName: 'CatBlue',
+      displayName: 'Blue Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.E,
+      logicName: 'cat_cow',
+      prefabSlot: CELL_TYPE.E,
+      skinKey: 'cats/cow',
+      suggestedPrefabName: 'CatCow',
+      displayName: 'Cow Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.F,
+      logicName: 'cat_pink',
+      prefabSlot: CELL_TYPE.F,
+      skinKey: 'cats/pink',
+      suggestedPrefabName: 'CatPink',
+      displayName: 'Pink Cat',
+      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+    },
+    {
+      cellType: CELL_TYPE.BIRD,
+      logicName: 'cat_rainbow_special',
+      prefabSlot: CELL_TYPE.BIRD,
+      skinKey: 'cats/rainbow',
+      suggestedPrefabName: 'CatRainbowSpecial',
+      displayName: 'Rainbow Cat',
+      comment: 'Cat draft special-piece naming only. No change to special effect logic.'
+    }
+  ]
+};
+
+export const CAT_OBSTACLE_DRAFT: ObstacleThemeBinding[] = [
   {
     obstacleType: 'ice',
-    skinKey: 'fruits/obstacles/ice_jelly',
-    displayName: 'Jelly Ice',
-    suggestedResourceName: 'obstacle_ice_jelly',
-    comment: 'Draft placeholder only. Current CellView still loads obstacles/ice.'
+    skinKey: 'cats/obstacles/ice_tag',
+    displayName: 'Frozen Cat Tag',
+    suggestedResourceName: 'obstacle_cat_ice_tag',
+    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/ice.'
   },
   {
     obstacleType: 'crate',
-    skinKey: 'fruits/obstacles/wood_crate',
-    displayName: 'Wooden Crate',
-    suggestedResourceName: 'obstacle_wood_crate',
-    comment: 'Draft placeholder only. Current CellView still loads obstacles/crate.'
+    skinKey: 'cats/obstacles/cardboard_box',
+    displayName: 'Cardboard Box',
+    suggestedResourceName: 'obstacle_cat_box',
+    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/crate.'
   },
   {
     obstacleType: 'chain',
-    skinKey: 'fruits/obstacles/vine_chain',
-    displayName: 'Vine Chain',
-    suggestedResourceName: 'obstacle_vine_chain',
-    comment: 'Draft placeholder only. Current CellView still loads obstacles/chain.'
+    skinKey: 'cats/obstacles/yarn_chain',
+    displayName: 'Yarn Chain',
+    suggestedResourceName: 'obstacle_cat_yarn_chain',
+    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/chain.'
   }
 ];
 
+export const ACTIVE_THEME_CONFIG: ThemeConfig = CAT_THEME_CONFIG;
+
 export function getCellThemeBinding(cellType: number): CellThemeBinding | null {
-  const binding = DEFAULT_THEME_CONFIG.cellBindings.find((item) => item.cellType === cellType);
+  const binding = ACTIVE_THEME_CONFIG.cellBindings.find((item) => item.cellType === cellType);
   return binding || null;
 }
