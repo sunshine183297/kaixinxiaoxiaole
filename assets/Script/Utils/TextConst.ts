@@ -1,38 +1,38 @@
-export const APP_DISPLAY_NAME = 'Lucky Pop';
-export const APP_THEME_TAGLINE = 'Cat Draft Prototype';
-export const APP_BRAND_TITLE = `${APP_DISPLAY_NAME} · Meow`;
+export const APP_DISPLAY_NAME = '猫猫消消乐';
+export const APP_THEME_TAGLINE = '超萌猫咪三消游戏';
+export const APP_BRAND_TITLE = APP_DISPLAY_NAME;
 
 export const UI_TEXT = {
   login: {
     heroTitle: APP_BRAND_TITLE,
-    heroSubtitle: 'Match, Meow, Celebrate'
+    heroSubtitle: '消除猫咪，收集爱心'
   },
   level: {
-    pageTitle: 'Kitty Map',
-    pageSubtitle: 'Choose Your Next Meow Stage',
-    lockedSuffix: 'Locked',
-    stepUnit: ' moves',
-    timeUnit: 's',
-    levelPrefix: 'Lv.'
+    pageTitle: '关卡选择',
+    pageSubtitle: '选择你的冒险之旅',
+    lockedSuffix: '未解锁',
+    stepUnit: ' 步',
+    timeUnit: '秒',
+    levelPrefix: '第'
   },
   hud: {
-    score: 'Meow Score',
-    steps: 'Moves',
-    time: 'Time',
-    stageLabel: 'Kitty Run'
+    score: '分数',
+    steps: '步数',
+    time: '时间',
+    stageLabel: '猫猫冒险'
   },
   pause: {
-    title: 'Meow Paused',
-    volume: 'Volume',
-    volumeCurrentPrefix: 'Current: ',
-    home: 'Back to Kitty Map',
-    continue: 'Keep Meowing'
+    title: '游戏暂停',
+    volume: '音量',
+    volumeCurrentPrefix: '当前：',
+    home: '返回关卡',
+    continue: '继续游戏'
   },
   result: {
-    backToLevels: 'Kitty Map',
-    nextLevel: 'Next Meow Stage',
-    win: 'Meow Complete',
-    lose: 'Meow Failed',
+    backToLevels: '返回关卡',
+    nextLevel: '下一关',
+    win: '过关啦！',
+    lose: '再试一次',
     titlePrefix: APP_BRAND_TITLE
   }
 } as const;

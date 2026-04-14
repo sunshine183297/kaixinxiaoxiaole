@@ -1,66 +1,146 @@
-# 开心消消乐（Cocos Creator）
+# 猫猫消消乐
 
-使用 **Cocos Creator** 编写的三消小游戏工程。
+使用 **Cocos Creator 3.8.6** + **TypeScript** 开发的三消小游戏，目标平台为**微信小游戏**。
 
-本仓库当前已升级到 **Cocos Creator 3.8.6**，并改用 **TypeScript**（开启较严格的 TS 校验）。
+六种可爱猫咪品种（橘猫、英短蓝猫、布偶猫、暹罗猫、三花猫、黑猫）作为消除棋子，搭配金色喵星人特殊道具，带来超萌的消除体验！
+
+---
+
+## 游戏特色
+
+- **猫咪主题**：6 种猫咪品种 + 1 个金色特殊棋子
+- **经典三消玩法**：交换相邻棋子，三个及以上相同猫咪即可消除
+- **特殊技能**：四连产生直线消除、L/T 型产生范围消除、五连产生全屏消除
+- **无限关卡**：20 个手工设计关卡 + 无限程序化生成关卡，永远玩不完
+- **12 种棋盘形状**：猫脸、鱼骨、爪印、菱形、蝴蝶结等趣味棋盘
+- **障碍机制**：冰冻鱼骨、纸箱子、毛线球等猫咪主题障碍物
+- **渐进难度**：难度随关卡平滑递增，障碍物和收集目标逐步引入
+- **星级评价**：每关最高三星评价，解锁后续关卡
+- **微信小游戏**：适配微信小游戏平台，支持分享、震动反馈
 
 ---
 
 ## 环境要求
 
-- Cocos Creator：**3.8.6**（推荐使用同版本打开，避免资源/序列化格式差异）
-- 操作系统：Windows / macOS 均可（本仓库示例路径以 Windows 为主）
-
-> 说明：该工程使用 Creator 3.x 的项目结构，根目录包含 `package.json`（其中 `creator.version = 3.8.6`）。
+- **Cocos Creator**：3.8.6（请使用同版本打开，避免资源/序列化格式差异）
+- **操作系统**：Windows / macOS
+- **微信开发者工具**：最新稳定版（用于小游戏调试和上传）
 
 ---
 
-## 快速开始（打开与运行）
+## 快速开始
+
+### 本地开发
 
 1. 安装并启动 **Cocos Creator 3.8.6**
 2. 在 Creator 中选择 **打开项目（Open Project）**，选择本仓库根目录
-3. 进入编辑器后，打开场景：
-	 - `assets/Scene/Login.scene`（登录/加载入口）
-	 - `assets/Scene/Game.scene`（游戏主场景）
-4. 点击编辑器顶部 **预览（Preview）/ 运行** 进行调试
+3. 打开场景：`assets/Scene/Login.scene`（游戏入口）
+4. 点击编辑器顶部 **预览（Preview）** 进行调试
 
-### 场景流转说明（便于理解工程入口）
+### 场景流转
 
-- `Login.scene` 里的 `LoginController` 会预加载并切换到 `Game.scene`
-- `Game.scene` 里的 `GameController` 初始化 `GameModel`，并驱动 `GridView` 渲染与交互
+```
+Login.scene → Level.scene → Game.scene
+  登录页面     关卡选择     游戏主场景
+```
 
----
+- `LoginController` 预加载关卡选择场景，切换到 `Level.scene`
+- `LevelSelectController` 展示关卡列表，选择关卡后进入 `Game.scene`
+- `GameController` 初始化游戏模型，驱动棋盘渲染与交互
 
-## 构建发布
+### 微信小游戏构建
 
-在 Creator 3.8.6 中打开：**项目（Project） → 构建发布（Build）**，选择目标平台并构建。
-
-由于 Creator 的构建面板与平台选项会随版本变化，建议以编辑器内面板为准。
+1. 在 Creator 中打开：**项目（Project） → 构建发布（Build）**
+2. 选择平台：**微信小游戏（WeChat Mini Game）**
+3. 填写 AppID（在 `build-templates/wechatgame/project.config.json` 中配置）
+4. 点击**构建（Build）**
+5. 用**微信开发者工具**打开构建产出目录进行调试和上传
 
 ---
 
 ## 目录结构
 
-### 资源
+```
+├── assets/
+│   ├── Scene/              # 场景文件
+│   │   ├── Login.scene     # 登录页
+│   │   ├── Level.scene     # 关卡选择
+│   │   └── Game.scene      # 游戏主场景
+│   ├── Script/
+│   │   ├── Controller/     # 控制器（登录、关卡选择、游戏）
+│   │   ├── Model/          # 数据模型（游戏逻辑、关卡配置、进度存储）
+│   │   │   └── Level/      # 关卡系统（配置、生成器、进度、公式）
+│   │   ├── View/           # 视图（棋盘、棋子、特效）
+│   │   └── Utils/          # 工具类（微信兼容、主题配置、音频等）
+│   ├── Prefabs/            # 预制体（猫咪棋子、特效）
+│   ├── Music/              # 音效与 BGM
+│   ├── Texture/            # 贴图资源
+│   └── resources/          # 运行时加载资源（关卡 JSON、UI 图标）
+├── build-templates/
+│   └── wechatgame/         # 微信小游戏构建模板
+├── docs/                   # 设计文档
+│   └── level-balance-draft.md  # 关卡系统设计文档
+├── settings/               # Cocos Creator 项目设置
+└── package.json            # 项目元数据
+```
 
-- `assets/Scene/`：场景（`Login.scene` / `Game.scene`）
-- `assets/Prefabs/`：预制体（棋子、特效等）
-- `assets/AnimationClip/`：动画资源
-- `assets/Music/`：音效与 BGM
-- `assets/Texture/`：贴图资源
+## 关卡系统
 
-### 脚本（TypeScript）
+### 混合关卡架构
 
-- `assets/Script/Controller/`：控制层（场景入口、按钮回调、业务调度）
-- `assets/Script/Model/`：数据与规则（如 GameModel、CellModel、常量定义等）
-- `assets/Script/View/`：视图与表现（GridView、CellView、EffectLayer 等）
-- `assets/Script/Utils/`：工具类（如 Toast、音频工具等）
-- `assets/Script/UnitTest/`：简单测试/验证脚本（如有）
+| 范围 | 来源 | 说明 |
+|------|------|------|
+| 第 1-20 关 | `levels.json` 手工设计 | 精心调教的新手引导和核心关卡 |
+| 第 21+ 关 | `LevelGenerator` 程序化生成 | 基于确定性随机的无限关卡 |
 
+### 程序化生成特性
+
+- **确定性**：同一关卡 ID 永远生成相同关卡
+- **12 种棋盘形状**：完整方形、猫脸、鱼骨、爪印、菱形、十字等
+- **渐进难度**：步数/时间递减，目标分数递增，障碍物逐步引入
+- **内容丰富**：70+ 种猫咪主题关卡名，3 种障碍物，收集目标
+- **分页加载**：关卡选择页支持无限滚动，按需加载
+
+---
+
+## 猫咪棋子对照表
+
+| 类型 | 猫咪品种 | 代表色 | 说明 |
+|------|---------|--------|------|
+| A | 橘猫 | 暖橘色 | 经典橘色虎斑 |
+| B | 英短蓝猫 | 蓝灰色 | 英国短毛蓝猫 |
+| C | 布偶猫 | 淡雅白 | 蓝眼白毛 |
+| D | 暹罗猫 | 奶茶色 | 深色面罩 |
+| E | 三花猫 | 暖杏色 | 黑白橘三色 |
+| F | 黑猫 | 深灰黑 | 神秘酷猫 |
+| 特殊 | 金色喵星人 | 金色 | 五连特殊棋子 |
+
+---
+
+## 微信小游戏上线清单
+
+- [ ] 在[微信公众平台](https://mp.weixin.qq.com/)注册小游戏账号并获取 AppID
+- [ ] 将 AppID 填入 `build-templates/wechatgame/project.config.json` 的 `appid` 字段
+- [ ] 准备猫咪主题美术资源替换占位预制体
+- [ ] 在 Cocos Creator 中构建微信小游戏包
+- [ ] 使用微信开发者工具调试并上传
+- [ ] 提交微信审核
+
+---
+
+## 技术栈
+
+- **引擎**：Cocos Creator 3.8.6
+- **语言**：TypeScript（严格模式）
+- **目标平台**：微信小游戏、Web
+- **设计分辨率**：640 × 1136（竖屏）
+
+---
 
 ## 更新记录
 
-2018/01/20 升级工程到 `cocos creator` `v1.8.1`  
-2018/07/01 增加一些音效  
-2019/01/30 升级工程到 `cocos creator` `v2.0.7`  
-2025/12/27 升级工程到 `cocos creator` `v3.8.6`，改用 `TypeScript`
+- 2026/04 改版为猫猫消消乐主题，适配微信小游戏平台
+- 2025/12 升级到 Cocos Creator 3.8.6，改用 TypeScript
+- 2019/01 升级到 Cocos Creator v2.0.7
+- 2018/07 增加音效
+- 2018/01 升级到 Cocos Creator v1.8.1

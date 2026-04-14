@@ -59,8 +59,11 @@ export class LevelState {
 
   getCollectDisplayText(): string {
     if (this.collectTargets.length === 0) return '';
+    const catNames: Record<number, string> = {
+      1: '橘猫', 2: '蓝猫', 3: '布偶', 4: '暹罗', 5: '三花', 6: '黑猫'
+    };
     return this.collectTargets
-      .map((t) => `${t.collected}/${t.count}(T${t.cellType})`)
+      .map((t) => `${catNames[t.cellType] || `猫${t.cellType}`} ${t.collected}/${t.count}`)
       .join(' ');
   }
 

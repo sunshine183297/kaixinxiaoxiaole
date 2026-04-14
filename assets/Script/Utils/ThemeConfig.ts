@@ -1,6 +1,6 @@
 import { CELL_TYPE } from '../Model/ConstValue';
 
-export type ThemeName = 'default' | 'fruit-draft' | 'cat-draft';
+export type ThemeName = 'default' | 'fruit-draft' | 'cat-match';
 
 export interface CellThemeBinding {
   cellType: number;
@@ -23,7 +23,7 @@ export interface CellThemeBinding {
    */
   displayName: string;
   /**
-   * 占位说明，强调当前仅是草案配置。
+   * 占位说明。
    */
   comment: string;
 }
@@ -32,7 +32,7 @@ export interface ThemeConfig {
   themeName: ThemeName;
   /**
    * CELL_TYPE 到视觉语义的映射。
-   * 注意：不改变 CELL_TYPE 编号，只做“说明层”配置。
+   * 注意：不改变 CELL_TYPE 编号，只做"说明层"配置。
    */
   cellBindings: CellThemeBinding[];
 }
@@ -55,7 +55,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/bear',
       suggestedPrefabName: 'Bear',
       displayName: 'Bear',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.B,
@@ -64,7 +64,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/cat',
       suggestedPrefabName: 'Cat',
       displayName: 'Cat',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.C,
@@ -73,7 +73,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/fox',
       suggestedPrefabName: 'Fox',
       displayName: 'Fox',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.D,
@@ -82,7 +82,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/chicken',
       suggestedPrefabName: 'Chicken',
       displayName: 'Chicken',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.E,
@@ -91,7 +91,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/frog',
       suggestedPrefabName: 'Frog',
       displayName: 'Frog',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.F,
@@ -100,7 +100,7 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/horse',
       suggestedPrefabName: 'Horse',
       displayName: 'Horse',
-      comment: 'Default animal theme placeholder. Real art is already bound in current prefabs.'
+      comment: 'Default animal theme placeholder.'
     },
     {
       cellType: CELL_TYPE.BIRD,
@@ -109,174 +109,105 @@ export const DEFAULT_THEME_CONFIG: ThemeConfig = {
       skinKey: 'animals/bird',
       suggestedPrefabName: 'Bird',
       displayName: 'Bird',
-      comment: 'Default special-piece placeholder. Effect behavior remains unchanged.'
+      comment: 'Default special-piece placeholder.'
     }
   ]
 };
 
-export const FRUIT_THEME_CONFIG: ThemeConfig = {
-  themeName: 'fruit-draft',
+export const CAT_MATCH_THEME_CONFIG: ThemeConfig = {
+  themeName: 'cat-match',
   cellBindings: [
     {
       cellType: CELL_TYPE.A,
-      logicName: 'fruit_apple',
+      logicName: 'cat_orange_tabby',
       prefabSlot: CELL_TYPE.A,
-      skinKey: 'fruits/apple',
-      suggestedPrefabName: 'FruitApple',
-      displayName: 'Apple',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      skinKey: 'cats/orange_tabby',
+      suggestedPrefabName: 'CatOrangeTabby',
+      displayName: '橘猫',
+      comment: '猫猫消消乐 - 橘猫（经典橘色虎斑）'
     },
     {
       cellType: CELL_TYPE.B,
-      logicName: 'fruit_banana',
+      logicName: 'cat_british_shorthair',
       prefabSlot: CELL_TYPE.B,
-      skinKey: 'fruits/banana',
-      suggestedPrefabName: 'FruitBanana',
-      displayName: 'Banana',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      skinKey: 'cats/british_shorthair',
+      suggestedPrefabName: 'CatBritishShorthair',
+      displayName: '英短蓝猫',
+      comment: '猫猫消消乐 - 英国短毛蓝猫'
     },
     {
       cellType: CELL_TYPE.C,
-      logicName: 'fruit_grape',
+      logicName: 'cat_ragdoll',
       prefabSlot: CELL_TYPE.C,
-      skinKey: 'fruits/grape',
-      suggestedPrefabName: 'FruitGrape',
-      displayName: 'Grape',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      skinKey: 'cats/ragdoll',
+      suggestedPrefabName: 'CatRagdoll',
+      displayName: '布偶猫',
+      comment: '猫猫消消乐 - 布偶猫（蓝眼白毛）'
     },
     {
       cellType: CELL_TYPE.D,
-      logicName: 'fruit_orange',
+      logicName: 'cat_siamese',
       prefabSlot: CELL_TYPE.D,
-      skinKey: 'fruits/orange',
-      suggestedPrefabName: 'FruitOrange',
-      displayName: 'Orange',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      skinKey: 'cats/siamese',
+      suggestedPrefabName: 'CatSiamese',
+      displayName: '暹罗猫',
+      comment: '猫猫消消乐 - 暹罗猫（深色面罩）'
     },
     {
       cellType: CELL_TYPE.E,
-      logicName: 'fruit_watermelon',
+      logicName: 'cat_calico',
       prefabSlot: CELL_TYPE.E,
-      skinKey: 'fruits/watermelon',
-      suggestedPrefabName: 'FruitWatermelon',
-      displayName: 'Watermelon',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
+      skinKey: 'cats/calico',
+      suggestedPrefabName: 'CatCalico',
+      displayName: '三花猫',
+      comment: '猫猫消消乐 - 三花猫（黑白橘三色）'
     },
     {
       cellType: CELL_TYPE.F,
-      logicName: 'fruit_blueberry',
-      prefabSlot: CELL_TYPE.F,
-      skinKey: 'fruits/blueberry',
-      suggestedPrefabName: 'FruitBlueberry',
-      displayName: 'Blueberry',
-      comment: 'Legacy draft only. Keep prefab slot and CELL_TYPE unchanged; replace visuals later in Editor.'
-    },
-    {
-      cellType: CELL_TYPE.BIRD,
-      logicName: 'fruit_rainbow',
-      prefabSlot: CELL_TYPE.BIRD,
-      skinKey: 'fruits/rainbow',
-      suggestedPrefabName: 'FruitRainbowSpecial',
-      displayName: 'Rainbow Fruit',
-      comment: 'Legacy draft special-piece naming only. No change to special effect logic.'
-    }
-  ]
-};
-
-export const CAT_THEME_CONFIG: ThemeConfig = {
-  themeName: 'cat-draft',
-  cellBindings: [
-    {
-      cellType: CELL_TYPE.A,
-      logicName: 'cat_white',
-      prefabSlot: CELL_TYPE.A,
-      skinKey: 'cats/white',
-      suggestedPrefabName: 'CatWhite',
-      displayName: 'White Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
-    },
-    {
-      cellType: CELL_TYPE.B,
-      logicName: 'cat_orange',
-      prefabSlot: CELL_TYPE.B,
-      skinKey: 'cats/orange',
-      suggestedPrefabName: 'CatOrange',
-      displayName: 'Orange Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
-    },
-    {
-      cellType: CELL_TYPE.C,
       logicName: 'cat_black',
-      prefabSlot: CELL_TYPE.C,
+      prefabSlot: CELL_TYPE.F,
       skinKey: 'cats/black',
       suggestedPrefabName: 'CatBlack',
-      displayName: 'Black Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
-    },
-    {
-      cellType: CELL_TYPE.D,
-      logicName: 'cat_blue',
-      prefabSlot: CELL_TYPE.D,
-      skinKey: 'cats/blue',
-      suggestedPrefabName: 'CatBlue',
-      displayName: 'Blue Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
-    },
-    {
-      cellType: CELL_TYPE.E,
-      logicName: 'cat_cow',
-      prefabSlot: CELL_TYPE.E,
-      skinKey: 'cats/cow',
-      suggestedPrefabName: 'CatCow',
-      displayName: 'Cow Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
-    },
-    {
-      cellType: CELL_TYPE.F,
-      logicName: 'cat_pink',
-      prefabSlot: CELL_TYPE.F,
-      skinKey: 'cats/pink',
-      suggestedPrefabName: 'CatPink',
-      displayName: 'Pink Cat',
-      comment: 'Cat draft placeholder only. Keep prefab slot and CELL_TYPE unchanged; waiting for formal cat art.'
+      displayName: '黑猫',
+      comment: '猫猫消消乐 - 黑猫（神秘酷猫）'
     },
     {
       cellType: CELL_TYPE.BIRD,
-      logicName: 'cat_rainbow_special',
+      logicName: 'cat_golden_special',
       prefabSlot: CELL_TYPE.BIRD,
-      skinKey: 'cats/rainbow',
-      suggestedPrefabName: 'CatRainbowSpecial',
-      displayName: 'Rainbow Cat',
-      comment: 'Cat draft special-piece naming only. No change to special effect logic.'
+      skinKey: 'cats/golden_special',
+      suggestedPrefabName: 'CatGoldenSpecial',
+      displayName: '金色喵星人',
+      comment: '猫猫消消乐 - 特殊棋子：金色彩虹猫'
     }
   ]
 };
 
-export const CAT_OBSTACLE_DRAFT: ObstacleThemeBinding[] = [
+export const CAT_OBSTACLE_CONFIG: ObstacleThemeBinding[] = [
   {
     obstacleType: 'ice',
-    skinKey: 'cats/obstacles/ice_tag',
-    displayName: 'Frozen Cat Tag',
-    suggestedResourceName: 'obstacle_cat_ice_tag',
-    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/ice.'
+    skinKey: 'cats/obstacles/frozen_fishbone',
+    displayName: '冰冻鱼骨',
+    suggestedResourceName: 'obstacle_frozen_fishbone',
+    comment: '猫猫消消乐障碍物 - 冰冻的鱼骨头'
   },
   {
     obstacleType: 'crate',
     skinKey: 'cats/obstacles/cardboard_box',
-    displayName: 'Cardboard Box',
-    suggestedResourceName: 'obstacle_cat_box',
-    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/crate.'
+    displayName: '纸箱子',
+    suggestedResourceName: 'obstacle_cardboard_box',
+    comment: '猫猫消消乐障碍物 - 猫咪最爱的纸箱'
   },
   {
     obstacleType: 'chain',
-    skinKey: 'cats/obstacles/yarn_chain',
-    displayName: 'Yarn Chain',
-    suggestedResourceName: 'obstacle_cat_yarn_chain',
-    comment: 'Cat draft placeholder only. Current CellView still loads obstacles/chain.'
+    skinKey: 'cats/obstacles/yarn_ball',
+    displayName: '毛线球',
+    suggestedResourceName: 'obstacle_yarn_ball',
+    comment: '猫猫消消乐障碍物 - 缠绕的毛线球'
   }
 ];
 
-export const ACTIVE_THEME_CONFIG: ThemeConfig = CAT_THEME_CONFIG;
+export const ACTIVE_THEME_CONFIG: ThemeConfig = CAT_MATCH_THEME_CONFIG;
 
 export function getCellThemeBinding(cellType: number): CellThemeBinding | null {
   const binding = ACTIVE_THEME_CONFIG.cellBindings.find((item) => item.cellType === cellType);

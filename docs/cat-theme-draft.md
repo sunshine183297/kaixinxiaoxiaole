@@ -1,47 +1,48 @@
-# Cat Theme Draft（第十一轮：猫猫主题切换准备版）
+# 猫猫消消乐 - 猫咪主题配置文档
 
-## 1) 目标与边界
+## 1) 主题概述
 
-本轮目标是将产品表达从 Orchard/Fruit 草案切换为 Cat/Meow 方向，且保持低风险：
+猫猫消消乐使用 6 种真实猫咪品种作为游戏棋子，搭配金色喵星人作为特殊棋子。
 
-- 不改核心玩法逻辑（尤其不改 `GameModel.ts`）
-- 不改关卡数据（不改 `levels.json`）
-- 不改 `CELL_TYPE` 编号、语义、`aniPre` 顺序
-- 不改 scene/prefab 文件名与场景流转链路
-- 不接入正式猫猫美术资源，仅完成命名与文案迁移准备
+## 2) 猫咪品种映射
 
-## 2) 本轮已落地的猫猫命名映射
+`ThemeConfig.ts` 中 `CAT_MATCH_THEME_CONFIG` 定义了完整映射：
 
-`ThemeConfig.ts` 已固化草案映射（仅命名规范，不改变运行时玩法逻辑）：
+| CELL_TYPE | 猫咪品种 | 逻辑名 | 建议 Prefab 名 | skinKey |
+|-----------|---------|--------|---------------|---------|
+| A (1) | 橘猫 | cat_orange_tabby | CatOrangeTabby | cats/orange_tabby |
+| B (2) | 英短蓝猫 | cat_british_shorthair | CatBritishShorthair | cats/british_shorthair |
+| C (3) | 布偶猫 | cat_ragdoll | CatRagdoll | cats/ragdoll |
+| D (4) | 暹罗猫 | cat_siamese | CatSiamese | cats/siamese |
+| E (5) | 三花猫 | cat_calico | CatCalico | cats/calico |
+| F (6) | 黑猫 | cat_black | CatBlack | cats/black |
+| BIRD (7) | 金色喵星人 | cat_golden_special | CatGoldenSpecial | cats/golden_special |
 
-- A → White Cat
-- B → Orange Cat
-- C → Black Cat
-- D → Blue Cat
-- E → Cow Cat
-- F → Pink Cat
-- BIRD → Rainbow Cat
+## 3) 障碍物主题
 
-并新增 cat-draft 资源命名建议：
+| 障碍类型 | 猫咪主题名称 | 建议资源名 |
+|---------|-------------|-----------|
+| ice | 冰冻鱼骨 | obstacle_frozen_fishbone |
+| crate | 纸箱子 | obstacle_cardboard_box |
+| chain | 毛线球 | obstacle_yarn_ball |
 
-- `cats/white`, `cats/orange`, `cats/black`, `cats/blue`, `cats/cow`, `cats/pink`, `cats/rainbow`
-- 建议 prefab 名：`CatWhite` ~ `CatRainbowSpecial`
+## 4) 美术资源接入步骤（Cocos Editor）
 
-## 3) 当前仍是“草案占位”的部分
+1. 为 7 类棋子制作并导入正式猫咪 SpriteFrame / 动画帧
+2. 在不改 `aniPre` 索引的前提下，替换每个槽位引用的 prefab 内容
+3. 按障碍类型替换视觉资源（ice/crate/chain）
+4. 回归验证：交换、消除、连锁、特殊棋、结算流程
 
-- 棋子图形仍为旧占位视觉（非正式猫猫头像）
-- 障碍仍加载 `obstacles/ice|crate|chain` 旧路径
-- 特殊棋仅改命名语义，效果表现与逻辑未变化
+## 5) 配色方案
 
-## 4) 正式猫猫美术接入时的手工步骤（Cocos Editor）
+CellView 中使用的占位 tint 颜色（正式美术替换后可移除）：
 
-1. 为 7 类棋子制作并导入正式猫猫 SpriteFrame / 动画帧。
-2. 在不改 `aniPre` 索引的前提下，替换每个槽位引用的 prefab 内容。
-3. 按障碍类型替换视觉资源（ice/crate/chain）。
-4. 回归验证：交换、消除、连锁、特殊棋、结算流程。
-
-## 5) 风险控制建议
-
-- 先替换静态帧，再替换动画帧，分批回归。
-- 保留当前草案配置作为 fallback，避免一次性大改导致难回滚。
-- 若美术命名与文档命名不一致，先统一命名再接入，避免资源漂移。
+| 猫咪品种 | RGB 色值 | 色彩说明 |
+|---------|---------|---------|
+| 橘猫 | (255, 165, 80) | 暖橘色 |
+| 英短蓝猫 | (140, 160, 200) | 蓝灰色 |
+| 布偶猫 | (240, 235, 255) | 淡雅白 |
+| 暹罗猫 | (210, 180, 140) | 奶茶色 |
+| 三花猫 | (255, 200, 150) | 暖杏色 |
+| 黑猫 | (80, 80, 90) | 深灰黑 |
+| 金色喵星人 | (255, 215, 0) | 金色 |
