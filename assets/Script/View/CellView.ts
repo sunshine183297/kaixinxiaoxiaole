@@ -1,4 +1,4 @@
-import { _decorator, Component, SpriteFrame, Animation, Sprite, tween, v3, UIOpacity, Vec3, Node, UITransform } from 'cc';
+import { _decorator, Component, SpriteFrame, Animation, Sprite, tween, v3, UIOpacity, Vec3, Node, UITransform, Color } from 'cc';
 const { ccclass, property } = _decorator;
 
 import { CELL_STATUS, CELL_WIDTH, CELL_HEIGHT, ANITIME, CELL_TYPE } from '../Model/ConstValue';

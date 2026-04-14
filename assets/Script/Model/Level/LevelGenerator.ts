@@ -1,5 +1,5 @@
 import type { LevelConfigData, LevelMode, LevelObstacle, LevelCollectTarget, LevelGrid } from './LevelConfig';
-import { CELL_TYPE, CELL_BASENUM } from '../ConstValue';
+import { CELL_TYPE } from '../ConstValue';
 
 /**
  * 棋盘形状模板，每个模板定义一个 9x9 的 mask。
@@ -456,6 +456,8 @@ export class LevelGenerator {
   /**
    * 生成收集目标。
    * 关卡 35+ 开始出现收集目标。
+   * 注意：GameModel.init 默认 cellTypeNum=4，只从 6 种中随机选 4 种。
+   * 收集目标限制为前 4 种类型（A-D），确保棋盘中一定出现这些类型。
    */
   private static generateCollectTargets(
     levelId: number,
@@ -466,8 +468,8 @@ export class LevelGenerator {
     if (rng.next() < 0.4) return [];
 
     const typeCount = rng.nextInt(1, Math.min(2, Math.floor(difficulty * 3) + 1));
-    const allTypes = [CELL_TYPE.A, CELL_TYPE.B, CELL_TYPE.C, CELL_TYPE.D, CELL_TYPE.E, CELL_TYPE.F];
-    const shuffled = rng.shuffle(allTypes);
+    const playableTypes = [CELL_TYPE.A, CELL_TYPE.B, CELL_TYPE.C, CELL_TYPE.D];
+    const shuffled = rng.shuffle(playableTypes);
 
     const targets: LevelCollectTarget[] = [];
     for (let i = 0; i < typeCount; i++) {

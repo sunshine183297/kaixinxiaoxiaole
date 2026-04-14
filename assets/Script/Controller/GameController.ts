@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, AudioSource, find, Canvas, UITransform, Vec3, Label, Color, Graphics, director, tween, Widget, view, sys, BlockInputEvents } from 'cc';
+import { _decorator, Component, Node, AudioSource, find, Canvas, UITransform, Vec2, Vec3, Label, Color, Graphics, director, tween, Widget, view, sys, BlockInputEvents } from 'cc';
 const { ccclass, property } = _decorator;
 
 import GameModel from "../Model/GameModel";
@@ -8,7 +8,6 @@ import { LevelState } from "../Model/Level/LevelState";
 import { evaluateStarFormula } from "../Model/Level/LevelFormula";
 import { LevelProgress } from "../Model/Level/LevelProgress";
 import { GridView } from '../View/GridView';
-import { Vec2 } from 'cc';
 import { LevelSelectController } from './LevelSelectController';
 import type { EffectCommand } from '../Model/GameModel';
 import { UI_TEXT } from '../Utils/TextConst';

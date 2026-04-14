@@ -19,9 +19,9 @@ export class WechatCompat {
     try {
       const wx = (globalThis as any).wx;
       if (!wx) return;
-      wx.showShareAppMessage?.({
-        title: '猫猫消消乐 - 来和可爱猫咪一起消除吧！',
-        imageUrl: ''
+      wx.showShareMenu?.({
+        withShareTicket: false,
+        menus: ['shareAppMessage', 'shareTimeline']
       });
       wx.onShareAppMessage?.(() => ({
         title: '猫猫消消乐 - 来和可爱猫咪一起消除吧！',

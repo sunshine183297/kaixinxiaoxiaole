@@ -1,5 +1,5 @@
 import { Vec2, v2 } from 'cc';
-import { CELL_TYPE, ANITIME, CELL_STATUS, GRID_HEIGHT } from "./ConstValue";
+import { CELL_TYPE, ANITIME, CELL_STATUS } from "./ConstValue";
 
 export interface CellCommand {
   action: string;

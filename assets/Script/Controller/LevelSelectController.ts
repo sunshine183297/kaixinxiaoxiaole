@@ -58,11 +58,21 @@ export class LevelSelectController extends Component {
 
   private setupScrollListener(): void {
     if (!this.scrollView) return;
-    this.scrollView.node.on('scroll-to-bottom', this.onScrollToBottom, this);
-    this.scrollView.node.on('bounce-bottom', this.onScrollToBottom, this);
+    this.scrollView.node.on('scroll-to-bottom', this.onScrollNearBottom, this);
+    this.scrollView.node.on('bounce-bottom', this.onScrollNearBottom, this);
+    this.scrollView.node.on('scrolling', this.onScrolling, this);
   }
 
-  private onScrollToBottom(): void {
+  private onScrolling(): void {
+    if (!this.scrollView || this.isLoadingMore || this.hasReachedLockedEnd) return;
+    const offset = this.scrollView.getScrollOffset();
+    const maxOffset = this.scrollView.getMaxScrollOffset();
+    if (maxOffset.y > 0 && offset.y >= maxOffset.y - 200) {
+      this.loadMoreLevels();
+    }
+  }
+
+  private onScrollNearBottom(): void {
     if (this.isLoadingMore || this.hasReachedLockedEnd) return;
     this.loadMoreLevels();
   }
