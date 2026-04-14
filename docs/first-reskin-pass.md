@@ -1,49 +1,49 @@
-# First Reskin Pass（低风险水果占位版）
+# First Reskin Pass（低风险主题迁移：Cat Draft）
 
 ## 1. 可行性审计结论
 
-在“不新增外部素材”的约束下，可以做一版**可见但占位**的水果主题原型，方式如下：
+在“不新增外部正式素材”的约束下，本轮可完成一版**猫猫主题表达迁移**：
 
-- UI 层：通过文案与标题风格统一为果园主题（低风险、脚本可控）。  
-- 棋子层：不改 prefab 结构与动画逻辑，仅对现有棋子 Sprite 施加按类型区分的颜色 tint（低风险、可逆）。  
+- UI 层：统一 Login/Level/HUD/Pause/Result 的文字语义为猫猫主题（低风险、脚本可控）。
+- 配置层：固化 A~F/BIRD 的猫猫命名映射，形成正式美术接入前的标准命名协议。
+- 文档层：将 Orchard/Fruit 相关叙述迁移为 Cat Draft 语义，明确“已完成项 vs 待美术项”。
 
 不能在本轮安全完成的部分：
 
-- 动物形象本体仍在现有 SpriteFrame/AnimationClip 里，无法在无新美术资源情况下真正替换为水果造型。  
-- 特殊棋（BIRD）也只能做色彩占位，不能做正式水果特效外观。
+- 正式猫猫头像与动画帧替换。
+- 障碍、特效、背景与按钮皮肤的最终美术统一。
 
 ## 2. 本轮实际做了什么
 
-- 登录页动态增加主题标题：`Lucky Pop · Orchard Prototype`。  
-- 关卡页标题文本统一加入 Orchard 标签。  
-- HUD/暂停/结算等可见文案统一为果园语义（Harvest/Orchard）。  
-- 对 A~F/BIRD 七类棋子添加颜色占位映射，使棋盘一眼可区分“水果化配色”。
+- 产品主标题从 Orchard 语义迁移为 Meow 语义。
+- 登录、选关、HUD、暂停、结算文案统一改为猫猫主题表达。
+- 主题配置新增/切换为 `cat-draft` 草案。
+- 固化棋子映射：White/Orange/Black/Blue/Cow/Pink/Rainbow Cat。
 
 ## 3. 哪些仍然是占位
 
-- 棋子图形仍是动物贴图，仅颜色变化。  
-- 障碍（ice/crate/chain）仍沿用当前资源与表现。  
-- 动画资产命名与逻辑未改（click/line/column/wrap/effect）。
+- 棋子与障碍仍是占位资源，不是正式猫猫美术版。
+- 特殊棋（BIRD）仅完成命名迁移，效果逻辑保持不变。
+- Scene/Prefab 文件名与结构未调整。
 
-## 4. 最小素材清单（正式美术版仍需）
+## 4. 正式素材清单（仍需）
 
 ### 4.1 棋子素材（7 套）
-- FruitApple, FruitBanana, FruitGrape, FruitOrange, FruitWatermelon, FruitBlueberry, FruitRainbowSpecial  
-- 每套至少需要：默认帧 + 点击态 + 线消/列消/包裹/特效对应动画帧（按现有 prefab 能力匹配）
+- CatWhite, CatOrange, CatBlack, CatBlue, CatCow, CatPink, CatRainbowSpecial
+- 每套至少需要：默认帧 + 点击态 + 特效对应动画帧（按现有 prefab 能力匹配）
 
 ### 4.2 障碍素材（3 套）
-- obstacle_ice_jelly
-- obstacle_wood_crate
-- obstacle_vine_chain
+- obstacle_cat_ice_tag
+- obstacle_cat_box
+- obstacle_cat_yarn_chain
 
 ### 4.3 可选 UI 素材
-- 登录页背景（果园风）
-- 关卡页背景（果园地图风）
+- 登录页背景（猫猫主题）
+- 关卡页背景（猫猫地图风）
 - 结算页图标与按钮皮肤
 
-## 5. 后续第二轮换皮建议
+## 5. 下一步接入建议
 
-1. 在 Cocos Editor 里复制现有 7 个棋子 prefab，替换 SpriteFrame 与 AnimationClip。  
-2. 保持 aniPre 槽位顺序不变，仅替换每个槽位的 prefab 引用。  
-3. 回归验证：交换、连锁、特殊棋、结算流程。  
-4. 最后再移除本轮 tint 占位（或保留为 fallback）。
+1. 在 Cocos Editor 中按 `aniPre` 槽位逐个替换猫猫 prefab 内容（不改顺序）。
+2. 完成每类棋子替换后立即做单类回归，再进行全量替换。
+3. 最后统一障碍与 UI 皮肤，完成猫猫正式版打磨。
