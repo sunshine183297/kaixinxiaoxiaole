@@ -1,6 +1,7 @@
 import { _decorator, Component, ProgressBar, Button, AudioClip, director, AudioSource, Sprite, Node, Label, Canvas, UITransform, Widget, Color } from 'cc';
 import { LevelSelectController } from './LevelSelectController';
 import { APP_DISPLAY_NAME, UI_TEXT } from '../Utils/TextConst';
+import { WechatCompat } from '../Utils/WechatCompat';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoginController')
@@ -20,6 +21,7 @@ export class LoginController extends Component {
         if (typeof document !== 'undefined') {
             document.title = APP_DISPLAY_NAME;
         }
+        WechatCompat.showShareMenu();
         this.ensureThemeTitle();
         // In Cocos 3.x, create AudioSource component to play audio
         this.audioSource = this.node.addComponent(AudioSource);

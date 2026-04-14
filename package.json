@@ -1,7 +1,8 @@
 {
-  "name": "kaixinxiaoxiaole",
+  "name": "cat-match-game",
   "type": "3d",
   "uuid": "5dc877ba-ef60-4086-86aa-a7167192ca61",
+  "description": "猫猫消消乐 - 超萌猫咪三消微信小游戏",
   "creator": {
     "version": "3.8.6",
     "registry": {

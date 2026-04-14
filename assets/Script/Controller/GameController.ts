@@ -13,6 +13,7 @@ import { LevelSelectController } from './LevelSelectController';
 import type { EffectCommand } from '../Model/GameModel';
 import { UI_TEXT } from '../Utils/TextConst';
 import { STORAGE_KEYS } from '../Utils/StorageKeyConst';
+import { WechatCompat } from '../Utils/WechatCompat';
 
 @ccclass('GameController')
 export class GameController extends Component {
@@ -85,7 +86,7 @@ export class GameController extends Component {
         const labels = canvasNode.getComponentsInChildren(Label);
         for (const label of labels) {
             const text = (label.string || '').trim();
-            if (text === '音乐播放/暂停' || text === '返回') {
+            if (text === '音乐播放/暂停' || text === '返回' || text === '音乐播放\\/暂停') {
                 // Prefer disabling the container node to remove the whole legacy control.
                 const container = label.node.parent && label.node.parent !== canvasNode ? label.node.parent : label.node;
                 container.active = false;
@@ -546,9 +547,8 @@ export class GameController extends Component {
         for (const g of sorted) {
             this.scheduleOnce(() => {
                 if (!this.levelState) return;
-                // 10 points per crushed cell (same as previous behavior, just split per step)
                 this.levelState.addScore(g.count * 10);
-                // Re-check end condition after each batch of score is applied.
+                WechatCompat.vibrateShort();
                 this.checkLevelEnd();
             }, g.at);
         }

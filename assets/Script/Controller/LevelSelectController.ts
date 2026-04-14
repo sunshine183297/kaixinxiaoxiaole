@@ -260,8 +260,8 @@ export class LevelSelectController extends Component {
     titleNode.setPosition(new Vec3(0, 38, 0));
     const titleLabel = titleNode.addComponent(Label);
     titleLabel.string = isUnlocked
-      ? `${UI_TEXT.level.levelPrefix}${level.data.id} · ${level.data.name}`
-      : `${UI_TEXT.level.levelPrefix}${level.data.id} · ${UI_TEXT.level.lockedSuffix}`;
+      ? `${UI_TEXT.level.levelPrefix}${level.data.id}关 · ${level.data.name}`
+      : `${UI_TEXT.level.levelPrefix}${level.data.id}关 · ${UI_TEXT.level.lockedSuffix}`;
     titleLabel.fontSize = 32;
     titleLabel.color = isUnlocked ? color(255, 255, 255) : color(180, 180, 180);
 

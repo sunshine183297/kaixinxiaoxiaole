@@ -115,13 +115,13 @@ export class CellView extends Component {
         if (!sprite) return;
 
         const tintByType: Record<number, [number, number, number]> = {
-            [CELL_TYPE.A]: [255, 105, 97],      // apple red
-            [CELL_TYPE.B]: [255, 226, 107],     // banana yellow
-            [CELL_TYPE.C]: [172, 113, 255],     // grape purple
-            [CELL_TYPE.D]: [255, 170, 80],      // orange
-            [CELL_TYPE.E]: [96, 214, 122],      // watermelon green
-            [CELL_TYPE.F]: [112, 156, 255],     // blueberry blue
-            [CELL_TYPE.BIRD]: [255, 120, 220]   // special fruit (high-contrast)
+            [CELL_TYPE.A]: [255, 165, 80],      // 橘猫 - 暖橘色
+            [CELL_TYPE.B]: [140, 160, 200],     // 英短蓝猫 - 蓝灰色
+            [CELL_TYPE.C]: [240, 235, 255],     // 布偶猫 - 淡雅白
+            [CELL_TYPE.D]: [210, 180, 140],     // 暹罗猫 - 奶茶色
+            [CELL_TYPE.E]: [255, 200, 150],     // 三花猫 - 暖杏色
+            [CELL_TYPE.F]: [80, 80, 90],        // 黑猫 - 深灰黑
+            [CELL_TYPE.BIRD]: [255, 215, 0]     // 金色喵星人 - 金色
         };
 
         const rgb = tintByType[this.model.type ?? -1];

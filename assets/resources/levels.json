@@ -3,7 +3,7 @@
   "levels": [
     {
       "id": 1,
-      "name": "新手 1",
+      "name": "猫爪初试",
       "mode": "steps",
       "steps": 24,
       "target": 300,
@@ -29,7 +29,7 @@
     },
     {
       "id": 2,
-      "name": "新手 2",
+      "name": "喵喵热身",
       "mode": "steps",
       "steps": 22,
       "target": 380,
@@ -55,7 +55,7 @@
     },
     {
       "id": 3,
-      "name": "新手 3",
+      "name": "毛球派对",
       "mode": "steps",
       "target": 470,
       "grid": {
@@ -81,7 +81,7 @@
     },
     {
       "id": 4,
-      "name": "新手 4",
+      "name": "猫咪花园",
       "mode": "steps",
       "target": 560,
       "grid": {
@@ -107,7 +107,7 @@
     },
     {
       "id": 5,
-      "name": "新手 5",
+      "name": "鱼干争夺",
       "mode": "steps",
       "steps": 16,
       "target": 680,
@@ -133,7 +133,7 @@
     },
     {
       "id": 6,
-      "name": "进阶 1",
+      "name": "猫咪客厅",
       "mode": "steps",
       "target": 760,
       "grid": {
@@ -159,7 +159,7 @@
     },
     {
       "id": 7,
-      "name": "进阶 2",
+      "name": "喵星探险",
       "mode": "steps",
       "steps": 15,
       "target": 840,
@@ -185,7 +185,7 @@
     },
     {
       "id": 8,
-      "name": "进阶 3",
+      "name": "阳台日光浴",
       "mode": "steps",
       "target": 930,
       "grid": {
@@ -211,7 +211,7 @@
     },
     {
       "id": 9,
-      "name": "进阶 4",
+      "name": "猫树挑战",
       "mode": "steps",
       "steps": 14,
       "target": 1020,
@@ -237,7 +237,7 @@
     },
     {
       "id": 10,
-      "name": "进阶 5",
+      "name": "毛线迷宫",
       "mode": "steps",
       "target": 1120,
       "grid": {
@@ -263,7 +263,7 @@
     },
     {
       "id": 11,
-      "name": "挑战 3",
+      "name": "深夜猫叫",
       "mode": "steps",
       "steps": 24,
       "target": 1050,
@@ -289,7 +289,7 @@
     },
     {
       "id": 12,
-      "name": "挑战 4",
+      "name": "罐头大作战",
       "mode": "time",
       "time": 90,
       "target": 1100,
@@ -315,7 +315,7 @@
     },
     {
       "id": 13,
-      "name": "高手 1",
+      "name": "猫咪学院",
       "mode": "steps",
       "steps": 24,
       "target": 1150,
@@ -341,7 +341,7 @@
     },
     {
       "id": 14,
-      "name": "高手 2",
+      "name": "屋顶奔跑",
       "mode": "time",
       "time": 95,
       "target": 1200,
@@ -367,7 +367,7 @@
     },
     {
       "id": 15,
-      "name": "高手 3",
+      "name": "纸箱迷城",
       "mode": "steps",
       "steps": 26,
       "target": 1250,
@@ -393,7 +393,7 @@
     },
     {
       "id": 16,
-      "name": "高手 4",
+      "name": "猫咪厨房",
       "mode": "time",
       "time": 100,
       "target": 1300,
@@ -419,7 +419,7 @@
     },
     {
       "id": 17,
-      "name": "高手 5",
+      "name": "鱼塘守卫",
       "mode": "steps",
       "steps": 26,
       "target": 1350,
@@ -445,7 +445,7 @@
     },
     {
       "id": 18,
-      "name": "专家 1",
+      "name": "喵星总部",
       "mode": "time",
       "time": 105,
       "target": 1400,
@@ -471,7 +471,7 @@
     },
     {
       "id": 19,
-      "name": "专家 2",
+      "name": "猫王宫殿",
       "mode": "steps",
       "steps": 28,
       "target": 1450,
@@ -497,7 +497,7 @@
     },
     {
       "id": 20,
-      "name": "专家 3",
+      "name": "终极喵战",
       "mode": "time",
       "time": 110,
       "target": 1500,
