@@ -817,17 +817,12 @@ export class GameController extends Component {
             nextLabel.string = UI_TEXT.result.nextLevel;
             nextLabel.fontSize = 26;
             nextLabel.color = new Color(255, 255, 255, 255);
-            nextNode.on(Node.EventType.TOUCH_END, async () => {
+            nextNode.on(Node.EventType.TOUCH_END, () => {
                 if (!this.levelConfig) {
                     this.loadLevelSceneWithBootstrap();
                     return;
                 }
                 const nextId = this.levelConfig.data.id + 1;
-                const nextConfig = await LevelConfigService.getById(nextId);
-                if (!nextConfig) {
-                    this.loadLevelSceneWithBootstrap();
-                    return;
-                }
                 LevelSession.setSelectedLevelId(nextId);
                 director.loadScene('Game');
             });

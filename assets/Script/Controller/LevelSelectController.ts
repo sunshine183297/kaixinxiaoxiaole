@@ -20,7 +20,7 @@ import {
   Graphics
 } from 'cc';
 import { LevelSession } from '../Model/Level/LevelSession';
-import { LevelConfigService, LevelConfig } from '../Model/Level/LevelConfig';
+import { LevelConfigService, LevelConfig, LEVEL_PAGE_SIZE } from '../Model/Level/LevelConfig';
 import { LevelProgress } from '../Model/Level/LevelProgress';
 import { ResourceLoader } from '../Utils/ResourceLoader';
 import { UI_TEXT } from '../Utils/TextConst';
@@ -39,16 +39,71 @@ export class LevelSelectController extends Component {
   private pageSubtitleNode: Node | null = null;
   private iconFrames: Record<string, SpriteFrame> = {};
 
+  private currentPage: number = 0;
+  private isLoadingMore: boolean = false;
+  private hasReachedLockedEnd: boolean = false;
+
   async onLoad(): Promise<void> {
     LevelSession.setSelectedLevelId(this.defaultLevelId);
     this.ensureCanvasAndScrollView();
     await this.loadIcons();
     await this.loadAndRenderLevels();
+    this.setupScrollListener();
   }
 
   onSelectLevel(levelId: number): void {
     LevelSession.setSelectedLevelId(levelId);
     director.loadScene('Game');
+  }
+
+  private setupScrollListener(): void {
+    if (!this.scrollView) return;
+    this.scrollView.node.on('scroll-to-bottom', this.onScrollToBottom, this);
+    this.scrollView.node.on('bounce-bottom', this.onScrollToBottom, this);
+  }
+
+  private onScrollToBottom(): void {
+    if (this.isLoadingMore || this.hasReachedLockedEnd) return;
+    this.loadMoreLevels();
+  }
+
+  private async loadMoreLevels(): Promise<void> {
+    if (this.isLoadingMore) return;
+    this.isLoadingMore = true;
+
+    try {
+      this.currentPage++;
+      const startId = this.currentPage * LEVEL_PAGE_SIZE + 1;
+      const levels = await LevelConfigService.getRange(startId, LEVEL_PAGE_SIZE);
+      const progress = LevelProgress.load();
+
+      let hasLockedLevel = false;
+      for (const level of levels) {
+        const isUnlocked = progress.isUnlocked(level.data.unlock.starsRequired);
+        const stars = progress.getStars(level.data.id);
+        const itemNode = this.createLevelItem(level, stars, isUnlocked);
+        this.contentNode!.addChild(itemNode);
+
+        if (!isUnlocked) {
+          hasLockedLevel = true;
+        }
+      }
+
+      if (hasLockedLevel) {
+        this.hasReachedLockedEnd = true;
+      }
+
+      this.updateScrollHint();
+    } catch (e) {
+      console.warn('Failed to load more levels:', e);
+    } finally {
+      this.isLoadingMore = false;
+    }
+  }
+
+  private updateScrollHint(): void {
+    if (!this.scrollHintNode) return;
+    this.scrollHintNode.active = !this.hasReachedLockedEnd;
   }
 
   private ensureCanvasAndScrollView(): void {
@@ -63,7 +118,6 @@ export class LevelSelectController extends Component {
       const canvasTransform = canvasNode.addComponent(UITransform);
       const size = view.getVisibleSize();
       canvasTransform.setContentSize(size.width, size.height);
-      // Canvas UI space is centered at (0,0) in 2D; placing at half-size can offset all UI.
       canvasNode.setPosition(0, 0, 0);
     }
 
@@ -142,6 +196,8 @@ export class LevelSelectController extends Component {
       const scrollView = scrollNode.addComponent(ScrollView);
       scrollView.vertical = true;
       scrollView.horizontal = false;
+      scrollView.bounceDuration = 0.3;
+      scrollView.brake = 0.75;
 
       const contentNode = new Node('Content');
       scrollNode.addChild(contentNode);
@@ -182,10 +238,7 @@ export class LevelSelectController extends Component {
       if (bgSprite) {
         bgSprite.spriteFrame = this.iconFrames.background;
         bgSprite.sizeMode = Sprite.SizeMode.CUSTOM;
-        // Use SIMPLE to ensure full stretch; SLICED requires proper 9-slice borders.
         bgSprite.type = Sprite.Type.SIMPLE;
-
-        // Force a layout pass; helps when running on different resolutions.
         this.backgroundNode.getComponent(Widget)?.updateAlignment();
       }
     }
@@ -228,13 +281,23 @@ export class LevelSelectController extends Component {
     const progress = LevelProgress.load();
 
     this.contentNode.removeAllChildren();
+    this.currentPage = 0;
+    this.hasReachedLockedEnd = false;
 
-    levels.forEach((level) => {
+    let hasLockedLevel = false;
+    for (const level of levels) {
       const isUnlocked = progress.isUnlocked(level.data.unlock.starsRequired);
       const stars = progress.getStars(level.data.id);
       const itemNode = this.createLevelItem(level, stars, isUnlocked);
-      this.contentNode!.addChild(itemNode);
-    });
+      this.contentNode.addChild(itemNode);
+      if (!isUnlocked) hasLockedLevel = true;
+    }
+
+    if (!hasLockedLevel) {
+      await this.loadMoreLevels();
+    }
+
+    this.updateScrollHint();
   }
 
   private createLevelItem(level: LevelConfig, stars: number, isUnlocked: boolean): Node {
@@ -253,6 +316,9 @@ export class LevelSelectController extends Component {
 
     const clampedStars = Math.max(0, Math.min(3, stars));
 
+    const isGenerated = LevelConfigService.isGenerated(level.data.id);
+    const titlePrefix = `${UI_TEXT.level.levelPrefix}${level.data.id}关`;
+
     const titleNode = new Node('Title');
     itemNode.addChild(titleNode);
     const titleTransform = titleNode.addComponent(UITransform);
@@ -260,8 +326,8 @@ export class LevelSelectController extends Component {
     titleNode.setPosition(new Vec3(0, 38, 0));
     const titleLabel = titleNode.addComponent(Label);
     titleLabel.string = isUnlocked
-      ? `${UI_TEXT.level.levelPrefix}${level.data.id}关 · ${level.data.name}`
-      : `${UI_TEXT.level.levelPrefix}${level.data.id}关 · ${UI_TEXT.level.lockedSuffix}`;
+      ? `${titlePrefix} · ${level.data.name}`
+      : `${titlePrefix} · ${UI_TEXT.level.lockedSuffix}`;
     titleLabel.fontSize = 32;
     titleLabel.color = isUnlocked ? color(255, 255, 255) : color(180, 180, 180);
 
