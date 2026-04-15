@@ -41,10 +41,18 @@ export class LevelState {
     }
   }
 
+  /**
+   * 判断是否过关。
+   * 步数模式：必须步数用完后才结算（让玩家有机会拿更多分冲高星）。
+   * 时间模式：达到目标分即刻过关。
+   */
   isWin(): boolean {
     if (this.score < this.target) return false;
-    if (this.collectTargets.length === 0) return true;
-    return this.collectTargets.every((t) => t.collected >= t.count);
+    if (this.collectTargets.length > 0) {
+      if (!this.collectTargets.every((t) => t.collected >= t.count)) return false;
+    }
+    if (this.mode === 'steps' && this.stepsLeft > 0) return false;
+    return true;
   }
 
   addCollected(cellType: number | undefined, amount: number): void {
